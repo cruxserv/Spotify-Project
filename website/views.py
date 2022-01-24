@@ -3,12 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_required, current_user
+import os
 
 
-views = Blueprint('views', __name__)
+views = Blueprint("views", __name__)
 
 
-@views.route('/')
+@views.route("/")
 @login_required
 def home():
-    return render_template("home.html", user=current_user)
+    songs = os.listdir("website/static/assets/")
+    return render_template("home.html", user=current_user, songs=songs)
